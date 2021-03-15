@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Max O. Smith | Yuchen Lu</title>
+    <link>/authors/max-o.-smith/</link>
+      <atom:link href="/authors/max-o.-smith/index.xml" rel="self" type="application/rss+xml" />
+    <description>Max O. Smith</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 20 May 2019 23:52:57 -0500</lastBuildDate>
+    <image>
+      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Max O. Smith</title>
+      <link>/authors/max-o.-smith/</link>
+    </image>
+    
+    <item>
+      <title>No Press Diplomacy: Modeling Multi-Agent Gameplay</title>
+      <link>/publication/dipgame/</link>
+      <pubDate>Mon, 20 May 2019 23:52:57 -0500</pubDate>
+      <guid>/publication/dipgame/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

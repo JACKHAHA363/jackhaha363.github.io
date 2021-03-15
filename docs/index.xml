@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Yuchen Lu</title>
+    <link>/</link>
+      <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <description>Yuchen Lu</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 20 Jan 2021 23:52:57 -0500</lastBuildDate>
+    <image>
+      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Yuchen Lu</title>
+      <link>/</link>
+    </image>
+    
+    <item>
+      <title>Iterated learning for emergent systematicity in VQA </title>
+      <link>/publication/ilvqa/</link>
+      <pubDate>Wed, 20 Jan 2021 23:52:57 -0500</pubDate>
+      <guid>/publication/ilvqa/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Iterated Learning for Deep Learning</title>
+      <link>/talk/nil_deep_learn/</link>
+      <pubDate>Mon, 09 Nov 2020 01:08:29 -0500</pubDate>
+      <guid>/talk/nil_deep_learn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Countering Language Drift with Seeded Iterated Learning</title>
+      <link>/publication/itlearn/</link>
+      <pubDate>Sat, 23 May 2020 23:52:57 -0500</pubDate>
+      <guid>/publication/itlearn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Reinforcement Learning and Control as Probabilistic Inference</title>
+      <link>/talk/control_as_inf/</link>
+      <pubDate>Thu, 21 Nov 2019 01:08:29 -0500</pubDate>
+      <guid>/talk/control_as_inf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Paper Presentation: Re-evaluate Evaluation</title>
+      <link>/talk/evaluate_evaluation/</link>
+      <pubDate>Thu, 19 Sep 2019 14:00:00 +0000</pubDate>
+      <guid>/talk/evaluate_evaluation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>No Press Diplomacy: Modeling Multi-Agent Gameplay</title>
+      <link>/publication/dipgame/</link>
+      <pubDate>Mon, 20 May 2019 23:52:57 -0500</pubDate>
+      <guid>/publication/dipgame/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Label Leaking in Adversarial Training</title>
+      <link>/post/label_leak/</link>
+      <pubDate>Mon, 19 Jun 2017 00:00:00 +0000</pubDate>
+      <guid>/post/label_leak/</guid>
+      <description>&lt;h2 id=&#34;what-is-label-leaking-effect&#34;&gt;What is Label Leaking Effect?&lt;/h2&gt;
+&lt;p&gt;Label leaking effect, is the phenomenon that during adversarial training, the validation error on adversarial examples are smaller than the validation error on clean examples. The effect is reported in 
+&lt;a href=&#34;https://arxiv.org/pdf/1611.01236.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this paper&lt;/a&gt;, and it is an interesting one. Adversarial examples are supposed to confuse the neural nets during training so as to increase the robustness. It is like a form of data augmentation, and it is supposed to increase the difficulty for neural nets to success. Nevertheless, at the end of training, models are able to solve the problem of classifying adversarial examples better than the original problem.&lt;/p&gt;
+&lt;p&gt;The problem is that when one uses &lt;strong&gt;one-step methods that involves the true labels&lt;/strong&gt; to craft adversarial samples, there is extra information about label being leaked, thus making the problem simple. To see how it works, let&amp;rsquo;s start by examine one such method, &lt;strong&gt;Fast Gradient Sign Method (FGSM)&lt;/strong&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;how-does-fgsm-leak-label-information&#34;&gt;How Does FGSM Leak Label Information?&lt;/h2&gt;
+&lt;p&gt;Suppose we have original data $X,Y_{true}$ and a model $F$ .
+Our prediction is $Y_{pred} = F(X)$. Our loss function is $L(Y_{true}, Y_{pred})$ telling us how far $Y_{pred}$ is away from $Y_{true}$. In FGSM, the motivation is to increase the loss by add to $X$ a small perturbation which is proportional to the sign of the gradient of $L$ w.r.t. $X$. That is
+$$
+X_{adv} = X + \epsilon sign( \frac{\partial L(Y_{true}, Y_{pred})}{\partial X} )
+$$
+where $X_{adv}$ is called the adversarial sample, and $\epsilon$ controls the step size. In the case of image-classification, we could further add some details. That is
+$$
+output = f(X)
+$$
+$$
+Y_{pred} = SoftMax(output)
+$$
+$$
+L(Y_{true}, Y_{pred}) = CrossEntropy(Y_{true}, Y_{pred})
+$$&lt;/p&gt;
+&lt;p&gt;Then we have
+$$
+\frac{\partial L(Y_{true}, Y_{pred})}{\partial X}=\frac{\partial L(Y_{true}, Y_{pred})}{\partial output} \frac{\partial output}{\partial X}=(Y_{pred}-Y_{true})\frac{\partial output}{\partial X}
+$$
+For different $X$, the part of $\frac{\partial output}{\partial X}$ is dominated by a big product of weight matrix and activations. For two images with the same label, their activations in any fixed networks are close, and the weights of the network are fixed. As a result $\frac{\partial output}{\partial X}$ is almost a constant for $X$ with the same label. That means, the resulting gradient is highly correlated with the $Y_{true}$, and therefore the label information is leaked in this gradient term.&lt;/p&gt;
+&lt;p&gt;As a result, when added the gradient, classifying $X_{adv}$ could become a simpler problem than the original problem of classifying $X$, as &lt;strong&gt;$X_{adv}$ contains extra information from the added gradient.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I did an experiment on MNIST. The original model is a three layer MLP with random initialization. After extract the sign of the gradients, I further transform each gradient between 0 and 1 by
+$$
+X_{noise} = clip(gradient+1, 0, 1)
+$$
+I fit a simple linear model on the dataset $X_{noise}, Y_{true}$ using SGD without any careful tuning. As a result, I obtained a $96%$ validation error. This confirms the hypothesis.&lt;/p&gt;
+&lt;p&gt;If classifying $X_{adv}$ becomes a easier problem, then one can imagine that when doing training by adding adversarial samples, the network would find a weight configuration such that it fully take advantage of the extra label information hidden in the label. If the difficulty gap between the original $X$ and $X_{adv}$ is too large, then it is expected that the validation error on the adversarial samples are lower. That&amp;rsquo;s why we don&amp;rsquo;t observe label leaking effect on MNIST but only on ImageNet, since classifying $X$ is easy enough.&lt;/p&gt;
+&lt;h2 id=&#34;label-leaking-in-cifar-10&#34;&gt;Label Leaking in Cifar-10&lt;/h2&gt;
+&lt;p&gt;To further illustrate this effect, I use FGSM to adversarial train a resNet with 110 layers on Cifar10, since no one has tried to reproduce this effect on cifar yet. The adversarial training process is the same as 
+&lt;a href=&#34;https://arxiv.org/pdf/1611.01236.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;. I replaced half of the batch with adversarial samples, with $\epsilon \sim N(\mu=0, \sigma=12)$, and I discarded the negative $\epsilon$ sampled. During evaluation, I set $\epsilon$ to be 6. After carefully tuning the learning rate and momentum, I obtain validation accuracy on clean and adversarial examples to be respectively $92.12%$ and $94.81%$. Boom, mission completed.&lt;/p&gt;
+&lt;p&gt;In order to further appreciate this effect, I also provide the cross entropy vs $\epsilon$ graph on the validation data. By varying the $\epsilon$ along the direction along which the loss increases fastest, we could find some interesting insight about why adversarial training work.&lt;/p&gt;
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure id=&#34;figure-plot-of-cross-entropy-vs-epsilon-in-fgsm&#34;&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/label_leak/feature_hud29180c808b3a7554989112ec0c1a5f7_25918_2000x2000_fit_lanczos_2.png&#34; data-caption=&#34;Plot of cross entropy vs. $\epsilon$ in FGSM&#34;&gt;
+
+
+  &lt;img data-src=&#34;/post/label_leak/feature_hud29180c808b3a7554989112ec0c1a5f7_25918_2000x2000_fit_lanczos_2.png&#34; class=&#34;lazyload&#34; alt=&#34;&#34; width=&#34;800&#34; height=&#34;600&#34;&gt;
+&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Plot of cross entropy vs. $\epsilon$ in FGSM
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;With increasing $\epsilon$, the loss first increases. This is understandable since gradient is the direction along which the loss increases fastest.&lt;/li&gt;
+&lt;li&gt;After a peak, the loss start decreasing. This is the gradient masking effect of adversarial training, as is also reported in Figure 2 of 
+&lt;a href=&#34;https://arxiv.org/pdf/1705.07204.pdf?&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this paper&lt;/a&gt;. We can also see at $\epsilon=6$, the loss is even lower than $\epsilon=0$, which is consistent with the label leaking effect we observed before.&lt;/li&gt;
+&lt;li&gt;This is graph also illustrate why adversarial training using one-step FGSM cannot defend attacks from iterative FGSM. In iterative methods, the attacker could still follow the curve and find that little peak to fool the network.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Label leaking effect is an counter-intuitive phenomenon, since we are expecting that adversarial samples are a form of data augmentation, and thus are harder problems to solve. After these experiments, I believe &lt;strong&gt;this effect is caused by the correlation between the added noise and true label&lt;/strong&gt;, and &lt;strong&gt;this effect would occur only when the original classification problem is very hard.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;One more question is if we can avoid this by using least-likely class when calculating the gradients, I personally don&amp;rsquo;t think that it can solve the problem. Because even if we are not using the true label, for images in the same class, they might have the same least-likely class label, because of the same reason that they have similar activations. As a result, there is still a strong correlation between the gradient and the true label, because of the strong correlation between the least-likely label and the true label. Nevertheless, further experiment could be done to prove or disprove this.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
