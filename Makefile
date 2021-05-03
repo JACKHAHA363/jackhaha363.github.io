@@ -1,4 +1,5 @@
 deploy:
+	rm docs -rf
 	hugo 
 	cp -r public/ docs
 	git add -A
