@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chuang Gan | Yuchen Lu</title>
+    <link>/authors/chuang-gan/</link>
+      <atom:link href="/authors/chuang-gan/index.xml" rel="self" type="application/rss+xml" />
+    <description>Chuang Gan</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 20 Jan 2021 23:52:57 -0500</lastBuildDate>
+    <image>
+      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Chuang Gan</title>
+      <link>/authors/chuang-gan/</link>
+    </image>
+    
+    <item>
+      <title>Learning Task Decomposition with Ordered Memory Network</title>
+      <link>/publication/ompn/</link>
+      <pubDate>Wed, 20 Jan 2021 23:52:57 -0500</pubDate>
+      <guid>/publication/ompn/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
